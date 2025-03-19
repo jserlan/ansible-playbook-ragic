@@ -1,0 +1,18 @@
+---
+- name: Install Ragic
+  ansible.builtin.include_tasks:
+    file: install.yml
+    apply:
+      tags:
+        - install
+  tags:
+    - install
+
+- name: Patch Ragic
+  ansible.builtin.include_tasks:
+    file: patch.yml
+    apply:
+      tags:
+        - patch
+  tags:
+    - patch

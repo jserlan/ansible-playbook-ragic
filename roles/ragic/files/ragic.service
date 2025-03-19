@@ -1,0 +1,24 @@
+[Unit]
+Description=Ragic Database
+After=network-online.target
+ 
+[Service]
+Type=simple
+ 
+User=root
+Group=root
+UMask=007
+
+Environment="JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64"
+Environment="JAVA_OPTS=-Xms5g -Xmx5g"
+Environment="RAGIC_HOME=/srv/ragic"
+
+ExecStart=/srv/ragic/bin/ragic_dbv7.sh manual
+#ExecStop=pkill -f RagicJetty9Server
+ 
+Restart=on-failure
+ 
+TimeoutStopSec=300
+ 
+[Install]
+WantedBy=multi-user.target

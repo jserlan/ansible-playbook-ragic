@@ -1,0 +1,7 @@
+---
+- name: "Rebuilding locales database"
+  command: "{{ item }}"
+  with_items:
+    - dpkg-reconfigure locales -f noninteractive
+    - /usr/sbin/locale-gen
+    - update-locale LANG={{ locale }} LC_ALL={{ locale }}

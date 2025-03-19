@@ -1,0 +1,5 @@
+---
+# Here are the url for the archive files provided by Ragic, you must be compliante with the Ragic Terms of Service before use it
+ragic_builder_url: https://s3.amazonaws.com/staticragic/RagicBuilder.zip
+ragic_builder_patch_url: https://s3.amazonaws.com/staticragic/RagicBuilderPatch.zip
+ragic_apk_url: https://s3.amazonaws.com/staticragic/app-release.apk

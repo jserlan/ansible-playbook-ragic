@@ -1,0 +1,6 @@
+---
+- name: "Starting the Ragic service"
+  service:
+    name: ragic
+    enabled: yes
+    state: started
