@@ -1,0 +1,31 @@
+---
+- name: "Downloading the RagicBuilder archive"
+  ansible.builtin.get_url:
+    url: '{{ ragic_builder_patch_url }}'
+    dest: /tmp/ragic-patch.zip
+
+# Add don't extract if non empty
+- name: "Extracting the RagicBuilder archive"
+  ansible.builtin.unarchive:
+    src: /tmp/ragic-patch.zip
+    dest: /srv/ragic
+    owner: root
+    group: root
+    remote_src: yes
+
+- name: "Deleting the RagicBuilder archive"
+  ansible.builtin.file:
+    path: /tmp/ragic-patch.zip
+    state: absent
+
+- name: "Starting the Ragic service"
+  service:
+    name: ragic
+    enabled: yes
+    state: stopped
+
+- name: "Starting the Ragic service"
+  service:
+    name: ragic
+    enabled: yes
+    state: started

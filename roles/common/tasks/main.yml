@@ -1,0 +1,44 @@
+---
+- name: "Installing utils packages"
+  apt:
+    name: "{{ packages['utils'] }}"
+    state: present
+    update_cache: yes
+  when: ansible_os_family == 'Debian'
+
+- name: "Setting the timezone"
+  timezone:
+    name: "{{ timezone }}"
+
+- name: "Installing ntp package"
+  apt:
+    name: ntp
+    state: present
+  when: ansible_os_family == 'Debian'
+  tags:
+  - ntp_client
+
+- name: "Starting ntp service"
+  service:
+    name: ntp
+    enabled: yes
+    state: started
+  when: ansible_os_family == 'Debian'
+  tags:
+  - ntp_client
+
+- name: "Installing monitoring tools"
+  apt:
+    name: "{{ packages['monitoring_tools'] }}"
+    state: present
+  when: ansible_os_family == 'Debian'
+  tags:
+  - monitoring_tools
+
+- name: "Installing admin tools"
+  apt:
+    name: "{{ packages['admin_tools'] }}"
+    state: present
+  when: ansible_os_family == 'Debian'
+  tags:
+  - admin_tools

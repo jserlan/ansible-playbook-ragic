@@ -1,0 +1,28 @@
+---
+locale: fr_FR.UTF-8
+timezone: Europe/Paris
+packages:
+  monitoring_tools:
+  - htop
+  - ncdu
+  admin_tools:
+  - netcat-traditional
+  - wget
+  - curl
+  - coreutils
+  - net-tools
+  - logrotate
+  - bash-completion
+  - zip
+  - unzip
+  - gzip
+  - util-linux
+  utils:
+  - less
+  - html2text
+  - xmlstarlet
+  - apt-file
+  - debconf
+  - debconf-utils
+  - locales
+  - tzdata

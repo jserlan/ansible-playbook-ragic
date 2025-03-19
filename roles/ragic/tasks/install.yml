@@ -1,0 +1,71 @@
+---
+- name: "Creating the Ragic directory"
+  ansible.builtin.file:
+    path: /srv/ragic
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: "Installing OpenJDK"
+  apt:
+    name: openjdk-8-jdk
+    state: present
+
+- name: "Downloading the RagicBuilder archive"
+  ansible.builtin.get_url:
+    url: "{{ ragic_builder_url }}"
+    dest: /tmp/ragic.zip
+
+# Add don't extract if non empty
+- name: "Extracting the RagicBuilder archive"
+  ansible.builtin.unarchive:
+    src: /tmp/ragic.zip
+    dest: /srv/ragic
+    owner: root
+    group: root
+    remote_src: yes
+
+# Add don't change if already changed
+- name: "Adding Ragic license files"
+  ansible.builtin.copy:
+    src: '{{ item.file }}'
+    dest: '/srv/ragic/cust/{{ item.file }}'
+    owner: root
+    group: root
+    mode: '0644'
+  loop:
+    - { file: license.xml }
+    - { file: sig }
+
+- name: "Adding the execution rights for Ragic scripts"
+  ansible.builtin.file:
+    path: "/srv/ragic/bin/{{ item.file }}"
+    state: touch
+    mode: u+x,g+x
+  loop:
+    - { file: checkragic.sh }
+    - { file: ragic_dbv4.sh }
+    - { file: ragic_dbv7.sh }
+    - { file: setclasspath.sh }
+    - { file: setclasspath_dbv4.sh }
+    - { file: setclasspath_dbv7.sh }
+
+- name: "Deleting the RagicBuilder archive"
+  ansible.builtin.file:
+    path: /tmp/ragic.zip
+    state: absent
+
+- name: "Creating the Ragic service"
+  ansible.builtin.copy:
+    src: ragic.service
+    dest: /etc/systemd/system/ragic.service
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: "Starting the Ragic service"
+  service:
+    name: ragic
+    enabled: yes
+    state: started
