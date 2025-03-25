@@ -1,17 +1,17 @@
 # ansible-playbook-ragic
 
-## Description :
+## Description
 
-This project contain a playbook to help you to deploy a Ragic installation on your own servers.
+This project contains a playbook to help you to deploy a Ragic installation on your own servers. It will install all the dependencies and run Ragic as a service in Systemd.
 
 ### Requirements :
 
-To use this project, you will need :
-- A machine running on Linux (for now, only on Ubuntu-like)
+To use this project, you need :
+- A server running on Linux (for now, only on Ubuntu-like)
 - An access to the root user or at least a user with administrative privileges with `sudo`.
 - A SSH server installed to access on the remote machine.
 
-### Files and folders description
+### Files and folders description :
 
 This project contains the following files and folders :
 - deploy-ragic.yml : list of roles to deploy and the common variables. For instance, here you can edit you timezone or remove a role from deployment.
@@ -48,10 +48,13 @@ Playbook arguments :
 
 At the end of the deployement using the playbook, the service will be available on the URL `http://<Your IP address>:80/` and you will be able to proceed you custom configurations.
 
+If you want to deploy you license file using this playbook, you can replace the license.xml and sig files by your own files under the folder roles/ragic/files.
+
 ## To do
 
 To improve thive project, the following tasks is on the todo list :
 - [ ] Provide the SSL configuration with certbot and nginx (or apache)
 - [ ] Add the UFW and fail2ban roles
 - [ ] Use a different user that the root user to run ragic
+
 And more...

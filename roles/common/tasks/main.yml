@@ -10,23 +10,6 @@
   timezone:
     name: "{{ timezone }}"
 
-- name: "Installing ntp package"
-  apt:
-    name: ntp
-    state: present
-  when: ansible_os_family == 'Debian'
-  tags:
-  - ntp_client
-
-- name: "Starting ntp service"
-  service:
-    name: ntp
-    enabled: yes
-    state: started
-  when: ansible_os_family == 'Debian'
-  tags:
-  - ntp_client
-
 - name: "Installing monitoring tools"
   apt:
     name: "{{ packages['monitoring_tools'] }}"
