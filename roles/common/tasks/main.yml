@@ -10,22 +10,16 @@
   timezone:
     name: "{{ timezone }}"
 
-- name: "Installing ntp package"
-  apt:
-    name: ntp
+# en_US.UTF-8 used by the Ragic scripts
+- name: "Add the locales"
+  community.general.locale_gen:
+    name:
+      - en_US.UTF-8
+      - "{{ locale }}"
     state: present
-  when: ansible_os_family == 'Debian'
-  tags:
-  - ntp_client
 
-- name: "Starting ntp service"
-  service:
-    name: ntp
-    enabled: yes
-    state: started
-  when: ansible_os_family == 'Debian'
-  tags:
-  - ntp_client
+- name: "Update locales to set the default locale"
+  command: update-locale LANG={{ locale }}
 
 - name: "Installing monitoring tools"
   apt:
